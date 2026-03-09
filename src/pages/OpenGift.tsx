@@ -62,7 +62,7 @@ export default function OpenGift() {
 
   return (
     <div className="flex-1 bg-gray-900 flex flex-col">
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 pt-24 pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

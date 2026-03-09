@@ -40,7 +40,10 @@ export function initDb() {
         title VARCHAR(255) NOT NULL,
         url TEXT NOT NULL
       );
-    `).catch(err => console.error("Failed to initialize Postgres schema:", err));
+    `).then(() => {
+      // Safely add music_url column if it doesn't exist
+      pgPool?.query(`ALTER TABLE gift_boxes ADD COLUMN music_url TEXT`).catch(() => {});
+    }).catch(err => console.error("Failed to initialize Postgres schema:", err));
   } else {
     // Fallback to SQLite
     const dbPath = path.resolve(process.cwd(), 'database.sqlite');
@@ -67,6 +70,12 @@ export function initDb() {
         FOREIGN KEY (gift_box_id) REFERENCES gift_boxes(id) ON DELETE CASCADE
       );
     `);
+    
+    try {
+      sqliteDb.exec(`ALTER TABLE gift_boxes ADD COLUMN music_url TEXT`);
+    } catch (e) {
+      // Column might already exist
+    }
   }
 }
 

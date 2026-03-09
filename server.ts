@@ -15,7 +15,7 @@ async function startServer() {
   // API Routes
   app.post('/api/gifts', async (req, res) => {
     try {
-      const { gift_id, password, sender_name, recipient_name, message, theme, links } = req.body;
+      const { gift_id, password, sender_name, recipient_name, message, theme, links, music_url } = req.body;
 
       if (!gift_id || !password || !sender_name || !recipient_name || !message || !theme) {
         return res.status(400).json({ error: 'Missing required fields' });
@@ -30,8 +30,8 @@ async function startServer() {
       const password_hash = await bcrypt.hash(password, 10);
 
       const result = await query(
-        'INSERT INTO gift_boxes (gift_id, password_hash, sender_name, recipient_name, message, theme) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
-        [gift_id, password_hash, sender_name, recipient_name, message, theme]
+        'INSERT INTO gift_boxes (gift_id, password_hash, sender_name, recipient_name, message, theme, music_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
+        [gift_id, password_hash, sender_name, recipient_name, message, theme, music_url || null]
       );
 
       const giftBoxId = result[0].id;

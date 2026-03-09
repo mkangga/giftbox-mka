@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Gift, Heart, Star, Sparkles, ExternalLink, Music, Music2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ReactPlayer from 'react-player';
 
 const THEME_STYLES = {
   romantic: {
@@ -101,9 +102,9 @@ export default function GiftReveal() {
     setStep(2);
 
     // Play music if available
-    if (audioRef.current) {
+    setMusicPlaying(true);
+    if (audioRef.current && !giftData.music_url) {
       audioRef.current.play().catch(e => console.error("Audio play failed:", e));
-      setMusicPlaying(true);
     }
 
     // Shake animation duration
@@ -144,7 +145,9 @@ export default function GiftReveal() {
   };
 
   const toggleMusic = () => {
-    if (audioRef.current) {
+    if (giftData.music_url) {
+      setMusicPlaying(!musicPlaying);
+    } else if (audioRef.current) {
       if (musicPlaying) {
         audioRef.current.pause();
       } else {
@@ -182,12 +185,24 @@ export default function GiftReveal() {
   return (
     <div className={`flex-1 ${theme.bg} ${theme.font} flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden transition-colors duration-1000`}>
       
-      {/* Optional Background Music */}
-      {/* We use a placeholder audio URL for demo purposes */}
-      <audio ref={audioRef} src="https://assets.mixkit.co/music/preview/mixkit-magical-surprise-461.mp3" loop />
+      {/* Background Music */}
+      {giftData.music_url ? (
+        <div className="absolute opacity-0 pointer-events-none w-0 h-0 overflow-hidden">
+          <ReactPlayer
+            url={giftData.music_url}
+            playing={musicPlaying && step >= 2}
+            loop={true}
+            volume={0.5}
+            width="1px"
+            height="1px"
+          />
+        </div>
+      ) : (
+        <audio ref={audioRef} src="https://actions.google.com/sounds/v1/science_fiction/magic_chime.ogg" loop />
+      )}
       
       {/* Pop sound effect */}
-      <audio ref={popSoundRef} src="https://assets.mixkit.co/sfx/preview/mixkit-party-crowd-applause-1227.mp3" />
+      <audio ref={popSoundRef} src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" />
       
       {step === 3 && (
         <button
