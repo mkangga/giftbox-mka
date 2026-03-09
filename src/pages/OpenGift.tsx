@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Unlock, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function OpenGift() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   
@@ -86,10 +88,10 @@ export default function OpenGift() {
             </div>
 
             <h2 className="text-3xl font-bold text-white text-center mb-2 tracking-tight">
-              {unlocked ? 'Unlocked!' : 'Open Gift Box'}
+              {unlocked ? 'Unlocked!' : t('open.title')}
             </h2>
             <p className="text-indigo-200 text-center mb-8">
-              {unlocked ? 'Preparing your surprise...' : 'Enter the secret details to reveal your gift.'}
+              {unlocked ? 'Preparing your surprise...' : t('open.subtitle')}
             </p>
 
             {error && (
@@ -98,7 +100,7 @@ export default function OpenGift() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-red-500/20 border border-red-500/50 text-red-200 px-4 py-3 rounded-xl mb-6 text-sm text-center"
               >
-                {error}
+                {t('open.error')}
               </motion.div>
             )}
 
@@ -111,7 +113,7 @@ export default function OpenGift() {
                   onChange={(e) => setGiftId(e.target.value)}
                   disabled={unlocked || loading}
                   className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none"
-                  placeholder="Gift Box ID"
+                  placeholder={t('create.giftId')}
                 />
               </div>
               <div>
@@ -122,7 +124,7 @@ export default function OpenGift() {
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={unlocked || loading}
                   className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none"
-                  placeholder="Password"
+                  placeholder={t('open.passwordPlaceholder')}
                 />
               </div>
 
@@ -138,10 +140,10 @@ export default function OpenGift() {
                 {loading ? (
                   <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : unlocked ? (
-                  'Opening...'
+                  t('open.unlocking')
                 ) : (
                   <>
-                    Unlock Gift <ArrowRight size={20} />
+                    {t('open.unlockBtn')} <ArrowRight size={20} />
                   </>
                 )}
               </button>

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Gift, Heart, Star, Sparkles, ExternalLink, Music, Music2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const THEME_STYLES = {
   romantic: {
@@ -53,6 +54,7 @@ const THEME_STYLES = {
 };
 
 export default function GiftReveal() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [giftData, setGiftData] = useState<any>(null);
@@ -253,13 +255,13 @@ export default function GiftReveal() {
                 className="mt-12"
               >
                 <h1 className={`text-4xl md:text-5xl font-bold mb-8 ${theme.text} drop-shadow-sm`}>
-                  A gift from {giftData.sender_name}
+                  {t('reveal.from')} {giftData.sender_name}
                 </h1>
                 <button
                   onClick={handleOpenGift}
                   className={`px-10 py-5 rounded-full font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl ${theme.button}`}
                 >
-                  Open Gift
+                  {t('reveal.openBtn')}
                 </button>
               </motion.div>
             )}
@@ -282,13 +284,13 @@ export default function GiftReveal() {
               <ThemeIcon size={120} className={`absolute -top-10 -right-10 opacity-10 ${theme.accent}`} />
               
               <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${theme.text}`}>
-                Hi {giftData.recipient_name},
+                {t('reveal.to')} {giftData.recipient_name},
               </h2>
               <div className={`text-lg md:text-xl leading-relaxed whitespace-pre-wrap ${theme.text} opacity-90`}>
                 {giftData.message}
               </div>
               <div className={`mt-8 text-right font-bold text-xl ${theme.accent}`}>
-                Love, {giftData.sender_name}
+                {t('reveal.from')} {giftData.sender_name}
               </div>
             </motion.div>
 
@@ -301,7 +303,7 @@ export default function GiftReveal() {
                 className="space-y-4"
               >
                 <h3 className={`text-2xl font-bold text-center mb-6 ${theme.text}`}>
-                  Your Surprises
+                  {t('reveal.surprises')}
                 </h3>
                 <div className="grid gap-4">
                   {giftData.links.map((link: any, index: number) => (

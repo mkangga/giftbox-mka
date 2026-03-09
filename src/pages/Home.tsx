@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Gift, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex flex-col items-center justify-center text-white overflow-hidden relative">
       {/* Animated Background Elements */}
@@ -55,10 +58,10 @@ export default function Home() {
         </motion.div>
 
         <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
-          Digital Gift Box
+          {t('home.title')}
         </h1>
         <p className="text-xl md:text-2xl mb-12 text-white/90 font-medium drop-shadow-md">
-          Send a surprise gift experience to someone special.
+          {t('home.subtitle')}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -69,7 +72,7 @@ export default function Home() {
               className="w-full sm:w-auto px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
             >
               <Gift size={24} />
-              Create Gift Box
+              {t('home.createBtn')}
             </motion.button>
           </Link>
           <Link to="/open">
@@ -79,7 +82,7 @@ export default function Home() {
               className="w-full sm:w-auto px-8 py-4 bg-purple-700/50 backdrop-blur-md border border-white/30 text-white rounded-full font-bold text-lg shadow-xl hover:bg-purple-600/50 transition-all flex items-center justify-center gap-2"
             >
               <Sparkles size={24} />
-              Open Gift Box
+              {t('home.openBtn')}
             </motion.button>
           </Link>
         </div>

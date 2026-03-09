@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Gift, Plus, Trash2, Copy, CheckCircle, ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const THEMES = [
   { id: 'romantic', name: 'Romantic', color: 'bg-pink-500' },
@@ -12,6 +13,7 @@ const THEMES = [
 ];
 
 export default function CreateGift() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     gift_id: '',
     password: '',
@@ -45,13 +47,24 @@ export default function CreateGift() {
     setLoading(true);
     setError('');
 
+    // Format URLs to ensure they have http:// or https://
+    const formattedLinks = links
+      .filter(l => l.title && l.url)
+      .map(l => {
+        let formattedUrl = l.url.trim();
+        if (!/^https?:\/\//i.test(formattedUrl)) {
+          formattedUrl = `https://${formattedUrl}`;
+        }
+        return { ...l, url: formattedUrl };
+      });
+
     try {
       const response = await fetch('/api/gifts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          links: links.filter(l => l.title && l.url),
+          links: formattedLinks,
         }),
       });
 
@@ -93,8 +106,8 @@ export default function CreateGift() {
             <CheckCircle size={40} />
           </motion.div>
           
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Gift Created!</h2>
-          <p className="text-gray-600 mb-8">Your digital gift box is ready to be shared.</p>
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">{t('create.success')}</h2>
+          <p className="text-gray-600 mb-8">{t('create.successDesc')}</p>
           
           <div className="bg-gray-100 p-4 rounded-xl mb-6 text-left">
             <p className="text-sm text-gray-500 font-medium mb-1">Gift Box ID</p>
@@ -106,7 +119,7 @@ export default function CreateGift() {
             className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 mb-4"
           >
             {copied ? <CheckCircle size={20} /> : <Copy size={20} />}
-            {copied ? 'Copied!' : 'Copy Gift Link'}
+            {copied ? t('create.copied') : t('create.copyLink')}
           </button>
 
           <Link to="/" className="text-indigo-600 font-medium hover:underline">
@@ -134,7 +147,7 @@ export default function CreateGift() {
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
               <Gift className="text-indigo-600" />
-              Create Gift Box
+              {t('create.title')}
             </h2>
 
             {error && (
@@ -146,68 +159,68 @@ export default function CreateGift() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Gift Box ID</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('create.giftId')}</label>
                   <input
                     type="text"
                     required
                     value={formData.gift_id}
                     onChange={(e) => setFormData({ ...formData, gift_id: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="e.g., happy-bday-sarah"
+                    placeholder={t('create.giftIdPlaceholder')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('create.password')}</label>
                   <input
                     type="password"
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="Secret password"
+                    placeholder={t('create.passwordPlaceholder')}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Sender Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('create.sender')}</label>
                   <input
                     type="text"
                     required
                     value={formData.sender_name}
                     onChange={(e) => setFormData({ ...formData, sender_name: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="Your name"
+                    placeholder={t('create.senderPlaceholder')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Recipient Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('create.recipient')}</label>
                   <input
                     type="text"
                     required
                     value={formData.recipient_name}
                     onChange={(e) => setFormData({ ...formData, recipient_name: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="Their name"
+                    placeholder={t('create.recipientPlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Personal Message</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('create.message')}</label>
                 <textarea
                   required
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
-                  placeholder="Write something sweet..."
+                  placeholder={t('create.messagePlaceholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Theme</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t('create.theme')}</label>
                 <div className="flex flex-wrap gap-3">
                   {THEMES.map((theme) => (
                     <button
@@ -221,7 +234,7 @@ export default function CreateGift() {
                       }`}
                     >
                       <span className={`inline-block w-3 h-3 rounded-full mr-2 ${theme.color}`} />
-                      {theme.name}
+                      {t(`theme.${theme.id}`)}
                     </button>
                   ))}
                 </div>
@@ -229,13 +242,13 @@ export default function CreateGift() {
 
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <label className="block text-sm font-medium text-gray-700">Gift Links</label>
+                  <label className="block text-sm font-medium text-gray-700">{t('create.links')}</label>
                   <button
                     type="button"
                     onClick={handleAddLink}
                     className="text-sm text-indigo-600 font-medium hover:text-indigo-700 flex items-center"
                   >
-                    <Plus size={16} className="mr-1" /> Add Link
+                    <Plus size={16} className="mr-1" /> {t('create.addLink')}
                   </button>
                 </div>
                 <div className="space-y-3">
@@ -247,14 +260,14 @@ export default function CreateGift() {
                           value={link.title}
                           onChange={(e) => handleLinkChange(index, 'title', e.target.value)}
                           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 text-sm"
-                          placeholder="Link Title (e.g., Spotify Playlist)"
+                          placeholder={t('create.linkTitlePlaceholder')}
                         />
                         <input
-                          type="url"
+                          type="text"
                           value={link.url}
                           onChange={(e) => handleLinkChange(index, 'url', e.target.value)}
                           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 text-sm"
-                          placeholder="https://..."
+                          placeholder={t('create.linkUrlPlaceholder')}
                         />
                       </div>
                       {links.length > 1 && (
@@ -279,7 +292,7 @@ export default function CreateGift() {
                 {loading ? (
                   <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  'Create Gift Box'
+                  t('create.submit')
                 )}
               </button>
             </form>
@@ -292,7 +305,7 @@ export default function CreateGift() {
             className="hidden lg:block"
           >
             <div className="sticky top-12">
-              <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Live Preview</h3>
+              <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{t('create.preview')}</h3>
               <div className={`w-full aspect-[9/16] rounded-[2.5rem] border-8 border-gray-900 overflow-hidden shadow-2xl relative transition-colors duration-500 ${
                 formData.theme === 'romantic' ? 'bg-pink-50' :
                 formData.theme === 'birthday' ? 'bg-yellow-50' :
