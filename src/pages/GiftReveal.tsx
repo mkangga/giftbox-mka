@@ -63,6 +63,7 @@ export default function GiftReveal() {
   const [step, setStep] = useState(1); // 1: Closed Box, 2: Shaking/Opening, 3: Reveal
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const popSoundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const checkAccess = () => {
@@ -107,6 +108,11 @@ export default function GiftReveal() {
 
     // Shake animation duration
     setTimeout(() => {
+      // Play pop sound
+      if (popSoundRef.current) {
+        popSoundRef.current.play().catch(e => console.error("Pop sound failed:", e));
+      }
+
       // Confetti explosion
       const duration = 3000;
       const end = Date.now() + duration;
@@ -150,7 +156,7 @@ export default function GiftReveal() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="flex-1 bg-gray-900 flex items-center justify-center">
         <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -158,7 +164,7 @@ export default function GiftReveal() {
 
   if (error || !giftData) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white p-4 text-center">
+      <div className="flex-1 bg-gray-900 flex items-center justify-center text-white p-4 text-center">
         <div>
           <h2 className="text-2xl font-bold mb-4">Oops!</h2>
           <p className="text-gray-400">{error || 'Gift not found'}</p>
@@ -174,11 +180,14 @@ export default function GiftReveal() {
   const ThemeIcon = theme.icon;
 
   return (
-    <div className={`min-h-screen ${theme.bg} ${theme.font} flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden transition-colors duration-1000`}>
+    <div className={`flex-1 ${theme.bg} ${theme.font} flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden transition-colors duration-1000`}>
       
       {/* Optional Background Music */}
       {/* We use a placeholder audio URL for demo purposes */}
       <audio ref={audioRef} src="https://assets.mixkit.co/music/preview/mixkit-magical-surprise-461.mp3" loop />
+      
+      {/* Pop sound effect */}
+      <audio ref={popSoundRef} src="https://assets.mixkit.co/sfx/preview/mixkit-party-crowd-applause-1227.mp3" />
       
       {step === 3 && (
         <button

@@ -4,6 +4,9 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      "nav.home": "Home",
+      "nav.create": "Create",
+      "nav.open": "Open",
       "home.title": "Digital Gift Box",
       "home.subtitle": "Create magical, personalized digital gift experiences for your loved ones.",
       "home.createBtn": "Create a Gift",
@@ -56,6 +59,9 @@ const resources = {
   },
   id: {
     translation: {
+      "nav.home": "Beranda",
+      "nav.create": "Buat",
+      "nav.open": "Buka",
       "home.title": "Kotak Kado Digital",
       "home.subtitle": "Buat pengalaman kado digital yang ajaib dan personal untuk orang tersayang.",
       "home.createBtn": "Buat Kado",

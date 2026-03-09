@@ -2,91 +2,72 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Gift, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Footer } from '../components/Footer';
 
 export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex flex-col items-center justify-center text-white overflow-hidden relative">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute bg-white/10 rounded-full"
-            style={{
-              width: Math.random() * 100 + 20,
-              height: Math.random() * 100 + 20,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * -100 - 50],
-              opacity: [0.1, 0.5, 0.1],
-              scale: [1, Math.random() * 1.5 + 0.5, 1],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+    <div className="flex-1 bg-[#0a0a0a] flex flex-col relative">
+      {/* Subtle Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="z-10 text-center px-4 max-w-2xl"
-      >
+      <div className="flex-1 flex flex-col items-center justify-center text-white overflow-hidden relative z-10">
         <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="flex justify-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center px-4 max-w-3xl w-full"
         >
-          <div className="relative">
-            <Gift size={80} className="text-white drop-shadow-2xl" />
-            <motion.div
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 -right-2"
-            >
-              <Sparkles size={32} className="text-yellow-300" />
-            </motion.div>
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="flex justify-center mb-10"
+          >
+            <div className="relative p-6 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <Gift size={48} className="text-gray-200" strokeWidth={1.5} />
+              <motion.div
+                animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-1 -right-1"
+              >
+                <Sparkles size={24} className="text-indigo-400" strokeWidth={1.5} />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 pb-2 tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+            {t('home.title')}
+          </h1>
+          <p className="text-lg md:text-xl mb-12 text-gray-400 font-light max-w-xl mx-auto leading-relaxed">
+            {t('home.subtitle')}
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/create" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto px-8 py-3.5 bg-white text-black rounded-full font-medium text-sm hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+              >
+                <Gift size={18} strokeWidth={2} />
+                {t('home.createBtn')}
+              </motion.button>
+            </Link>
+            <Link to="/open" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-gray-700 text-gray-300 rounded-full font-medium text-sm hover:bg-gray-800 hover:text-white transition-colors flex items-center justify-center gap-2"
+              >
+                <Sparkles size={18} strokeWidth={2} />
+                {t('home.openBtn')}
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
-
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
-          {t('home.title')}
-        </h1>
-        <p className="text-xl md:text-2xl mb-12 text-white/90 font-medium drop-shadow-md">
-          {t('home.subtitle')}
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <Link to="/create">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
-            >
-              <Gift size={24} />
-              {t('home.createBtn')}
-            </motion.button>
-          </Link>
-          <Link to="/open">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto px-8 py-4 bg-purple-700/50 backdrop-blur-md border border-white/30 text-white rounded-full font-bold text-lg shadow-xl hover:bg-purple-600/50 transition-all flex items-center justify-center gap-2"
-            >
-              <Sparkles size={24} />
-              {t('home.openBtn')}
-            </motion.button>
-          </Link>
-        </div>
-      </motion.div>
+      </div>
+      <Footer />
     </div>
   );
 }
