@@ -189,17 +189,6 @@ export default function GiftReveal() {
       {/* Pop sound effect */}
       <audio ref={popSoundRef} src="https://assets.mixkit.co/sfx/preview/mixkit-party-crowd-applause-1227.mp3" />
       
-      {step === 3 && (
-        <button
-          onClick={toggleMusic}
-          className={`absolute top-6 right-6 p-3 rounded-full backdrop-blur-md border z-50 transition-all ${
-            giftData.theme === 'galaxy' ? 'bg-white/10 border-white/20 text-white hover:bg-white/20' : 'bg-black/5 border-black/10 text-black hover:bg-black/10'
-          }`}
-        >
-          {musicPlaying ? <Music size={20} /> : <Music2 size={20} className="opacity-50" />}
-        </button>
-      )}
-
       {/* Galaxy Theme Stars */}
       {giftData.theme === 'galaxy' && (
         <div className="absolute inset-0 pointer-events-none">
