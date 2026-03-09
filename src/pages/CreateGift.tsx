@@ -22,7 +22,6 @@ export default function CreateGift() {
     recipient_name: '',
     message: '',
     theme: 'romantic',
-    music_url: '',
   });
   const [links, setLinks] = useState([{ title: '', url: '' }]);
   const [loading, setLoading] = useState(false);
@@ -228,18 +227,6 @@ export default function CreateGift() {
                     className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none placeholder-gray-500"
                     placeholder={t('create.messagePlaceholder')}
                   />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Music URL (Optional)</label>
-                  <input
-                    type="url"
-                    value={formData.music_url}
-                    onChange={(e) => setFormData({ ...formData, music_url: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-gray-500"
-                    placeholder="e.g. https://www.youtube.com/watch?v=..."
-                  />
-                  <p className="text-xs text-gray-500 mt-2">Paste a YouTube link or an MP3 URL to play when the gift is opened.</p>
                 </div>
 
                 <div>
