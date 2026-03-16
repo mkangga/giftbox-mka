@@ -61,8 +61,6 @@ export default function GiftReveal() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [step, setStep] = useState(1); // 1: Closed Box, 2: Shaking/Opening, 3: Reveal
-  const [musicPlaying, setMusicPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const popSoundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -99,12 +97,6 @@ export default function GiftReveal() {
 
   const handleOpenGift = () => {
     setStep(2);
-
-    // Play music if available
-    if (audioRef.current) {
-      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
-      setMusicPlaying(true);
-    }
 
     // Shake animation duration
     setTimeout(() => {
@@ -143,17 +135,6 @@ export default function GiftReveal() {
     }, 1500);
   };
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (musicPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setMusicPlaying(!musicPlaying);
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex-1 bg-gray-900 flex items-center justify-center">
@@ -181,10 +162,6 @@ export default function GiftReveal() {
 
   return (
     <div className={`flex-1 ${theme.bg} ${theme.font} flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden transition-colors duration-1000`}>
-      
-      {/* Optional Background Music */}
-      {/* We use a placeholder audio URL for demo purposes */}
-      <audio ref={audioRef} src="https://assets.mixkit.co/music/preview/mixkit-magical-surprise-461.mp3" loop />
       
       {/* Pop sound effect */}
       <audio ref={popSoundRef} src="https://assets.mixkit.co/sfx/preview/mixkit-party-crowd-applause-1227.mp3" />
