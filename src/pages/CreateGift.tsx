@@ -178,6 +178,7 @@ export default function CreateGift() {
                         required
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        autoComplete="new-password"
                         className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all pr-12 placeholder-gray-500"
                         placeholder={t('create.passwordPlaceholder')}
                       />

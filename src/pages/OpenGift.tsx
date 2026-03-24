@@ -115,6 +115,7 @@ export default function OpenGift() {
                     value={giftId}
                     onChange={(e) => setGiftId(e.target.value)}
                     disabled={unlocked || loading}
+                    autoComplete="off"
                     className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none"
                     placeholder={t('create.giftId')}
                   />
@@ -126,6 +127,7 @@ export default function OpenGift() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={unlocked || loading}
+                    autoComplete="one-time-code"
                     className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none pr-12"
                     placeholder={t('open.passwordPlaceholder')}
                   />
