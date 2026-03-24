@@ -122,12 +122,13 @@ export default function OpenGift() {
                 </div>
                 <div className="relative">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type="text"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={unlocked || loading}
-                    autoComplete="one-time-code"
+                    autoComplete="off"
+                    style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }}
                     className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none pr-12"
                     placeholder={t('open.passwordPlaceholder')}
                   />

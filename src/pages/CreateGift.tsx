@@ -174,11 +174,12 @@ export default function CreateGift() {
                     <label className="block text-sm font-medium text-gray-300 mb-2">{t('create.password')}</label>
                     <div className="relative">
                       <input
-                        type={showPassword ? "text" : "password"}
+                        type="text"
                         required
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        autoComplete="new-password"
+                        autoComplete="off"
+                        style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }}
                         className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all pr-12 placeholder-gray-500"
                         placeholder={t('create.passwordPlaceholder')}
                       />
