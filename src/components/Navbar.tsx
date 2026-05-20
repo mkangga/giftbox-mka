@@ -12,39 +12,39 @@ export function Navbar() {
   }
 
   return (
-    <nav className="fixed top-1 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-full shadow-xl">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-white border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
       <Link
         to="/"
-        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full transition-all text-sm sm:text-base ${
+        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border-[2px] transition-all text-sm sm:text-base ${
           location.pathname === '/' 
-            ? 'bg-white/20 text-white font-bold shadow-sm' 
-            : 'text-gray-300 hover:text-white hover:bg-white/10'
+            ? 'bg-[#fef08a] text-black font-extrabold border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
+            : 'text-black border-transparent font-bold hover:bg-gray-100 hover:border-black'
         }`}
       >
-        <Gift size={18} />
-        <span className="hidden sm:inline">{t('nav.home', 'Home')}</span>
+        <Gift size={18} className="stroke-[2.5px]" />
+        <span className="hidden sm:inline font-sans">{t('nav.home', 'Home')}</span>
       </Link>
       <Link
         to="/create"
-        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full transition-all text-sm sm:text-base ${
+        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border-[2px] transition-all text-sm sm:text-base ${
           location.pathname === '/create' 
-            ? 'bg-white/20 text-white font-bold shadow-sm' 
-            : 'text-gray-300 hover:text-white hover:bg-white/10'
+            ? 'bg-[#fbcfe8] text-black font-extrabold border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
+            : 'text-black border-transparent font-bold hover:bg-gray-100 hover:border-black'
         }`}
       >
-        <PlusCircle size={18} />
-        <span className="hidden sm:inline">{t('nav.create', 'Create')}</span>
+        <PlusCircle size={18} className="stroke-[2.5px]" />
+        <span className="hidden sm:inline font-sans">{t('nav.create', 'Create')}</span>
       </Link>
       <Link
         to="/open"
-        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full transition-all text-sm sm:text-base ${
+        className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border-[2px] transition-all text-sm sm:text-base ${
           location.pathname === '/open' 
-            ? 'bg-white/20 text-white font-bold shadow-sm' 
-            : 'text-gray-300 hover:text-white hover:bg-white/10'
+            ? 'bg-[#bbf7d0] text-black font-extrabold border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
+            : 'text-black border-transparent font-bold hover:bg-gray-100 hover:border-black'
         }`}
       >
-        <Unlock size={18} />
-        <span className="hidden sm:inline">{t('nav.open', 'Open')}</span>
+        <Unlock size={18} className="stroke-[2.5px]" />
+        <span className="hidden sm:inline font-sans">{t('nav.open', 'Open')}</span>
       </Link>
     </nav>
   );

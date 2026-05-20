@@ -13,10 +13,10 @@ export function LanguageSwitcher() {
   return (
     <button
       onClick={toggleLanguage}
-      className="fixed top-4 right-4 z-50 flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white/20 transition-all shadow-lg"
+      className="fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-2 bg-[#bbf7d0] border-[3px] border-black rounded-xl text-black font-extrabold hover:bg-[#86efac] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-pointer"
     >
-      <Globe className="w-4 h-4" />
-      <span className="text-sm font-medium uppercase">{i18n.language}</span>
+      <Globe className="w-4 h-4 stroke-[2.5px]" />
+      <span className="text-sm uppercase font-mono">{i18n.language}</span>
     </button>
   );
 }

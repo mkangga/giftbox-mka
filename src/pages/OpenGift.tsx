@@ -61,8 +61,14 @@ export default function OpenGift() {
   };
 
   return (
-    <div className="flex-1 bg-gray-900 flex flex-col">
-      <div className="flex-1 flex items-center justify-center p-4 pt-24 pb-12">
+    <div className="flex-1 bg-[#fdfcf7] flex flex-col relative select-none">
+      {/* Neobrutalist Grid Background */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-40 z-0"
+        style={{ backgroundImage: 'radial-gradient(circle, #000000 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}
+      ></div>
+
+      <div className="flex-1 flex items-center justify-center p-4 pt-28 pb-12 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,29 +77,25 @@ export default function OpenGift() {
           <motion.div
             animate={shake ? { x: [-10, 10, -10, 10, 0] } : {}}
             transition={{ duration: 0.4 }}
-            className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl relative overflow-hidden"
+            className="bg-white border-[3px] border-black p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden"
           >
-            {/* Animated Background Glow */}
-            <div className="absolute -top-20 -left-20 w-40 h-40 bg-indigo-500 rounded-full mix-blend-screen filter blur-[50px] opacity-50" />
-            <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-pink-500 rounded-full mix-blend-screen filter blur-[50px] opacity-50" />
-
             <div className="relative z-10">
               <div className="flex justify-center mb-8">
                 <motion.div
-                  animate={unlocked ? { scale: 1.2, rotateY: 180 } : {}}
+                  animate={unlocked ? { scale: 1.1, rotateY: 180 } : {}}
                   transition={{ duration: 0.6 }}
-                  className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg ${
-                    unlocked ? 'bg-green-400 text-white' : 'bg-white/20 text-white'
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
+                    unlocked ? 'bg-[#bbf7d0]' : 'bg-[#fef08a]'
                   }`}
                 >
-                  {unlocked ? <Unlock size={32} /> : <Lock size={32} />}
+                  {unlocked ? <Unlock size={32} className="stroke-[2.5px] text-black" /> : <Lock size={32} className="stroke-[2.5px] text-black" />}
                 </motion.div>
               </div>
 
-              <h2 className="text-3xl font-bold text-white text-center mb-2 tracking-tight">
+              <h2 className="text-3xl font-extrabold text-black text-center mb-2 tracking-tight uppercase leading-tight">
                 {unlocked ? 'Unlocked!' : t('open.title')}
               </h2>
-              <p className="text-indigo-200 text-center mb-8">
+              <p className="text-black/70 text-center mb-8 font-mono text-sm font-semibold">
                 {unlocked ? 'Preparing your surprise...' : t('open.subtitle')}
               </p>
 
@@ -101,7 +103,7 @@ export default function OpenGift() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-red-500/20 border border-red-500/50 text-red-200 px-4 py-3 rounded-xl mb-6 text-sm text-center"
+                  className="bg-red-200 border-[2.5px] border-black text-black px-4 py-3 rounded-xl mb-6 text-xs text-center font-mono font-bold shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
                 >
                   {t('open.error')}
                 </motion.div>
@@ -116,7 +118,7 @@ export default function OpenGift() {
                     onChange={(e) => setGiftId(e.target.value)}
                     disabled={unlocked || loading}
                     autoComplete="off"
-                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-3.5 bg-white border-[3px] border-black rounded-xl text-black placeholder-black/40 font-semibold focus:bg-[#fef08a] focus:outline-none transition-all"
                     placeholder={t('create.giftId')}
                   />
                 </div>
@@ -129,34 +131,34 @@ export default function OpenGift() {
                     disabled={unlocked || loading}
                     autoComplete="off"
                     style={{ WebkitTextSecurity: showPassword ? 'none' : 'disc' }}
-                    className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all outline-none pr-12"
+                    className="w-full px-4 py-3.5 bg-white border-[3px] border-black rounded-xl text-black placeholder-black/40 font-semibold focus:bg-[#fef08a] focus:outline-none transition-all pr-12"
                     placeholder={t('open.passwordPlaceholder')}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-black/60 hover:text-black hover:scale-105 transition-all cursor-pointer"
                   >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    {showPassword ? <EyeOff size={20} className="stroke-[2.5px]" /> : <Eye size={20} className="stroke-[2.5px]" />}
                   </button>
                 </div>
 
                 <button
                   type="submit"
                   disabled={unlocked || loading}
-                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-xl font-extrabold text-lg border-[3px] border-black transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider ${
                     unlocked
-                      ? 'bg-green-500 text-white'
-                      : 'bg-indigo-500 hover:bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(99,102,241,0.6)]'
+                      ? 'bg-[#bbf7d0] text-black'
+                      : 'bg-[#fbcfe8] hover:bg-[#f472b6] text-black shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px]'
                   }`}
                 >
                   {loading ? (
-                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-[2.5px] border-black border-t-transparent rounded-full animate-spin" />
                   ) : unlocked ? (
                     t('open.unlocking')
                   ) : (
                     <>
-                      {t('open.unlockBtn')} <ArrowRight size={20} />
+                      {t('open.unlockBtn')} <ArrowRight size={20} className="stroke-[2.5px]" />
                     </>
                   )}
                 </button>
